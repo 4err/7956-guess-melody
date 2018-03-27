@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Денис Байдаров](https://up.htmlacademy.ru/ecmascript/4/user/7956).
-* Наставник: `Неизвестно`.
+* Наставник: [Вадим Шевяков](https://htmlacademy.ru/profile/id574589).
 
 ---
 
