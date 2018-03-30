@@ -1,29 +1,24 @@
 /**
  * Created by Denis on 27.03.2018.
  */
-const views = document.querySelector(`#templates`).content.querySelectorAll(`.main`);
-const mainView = document.querySelector(`.main`);
 
-let currentView = 0;
+import {printScreen, setScreens} from './utils.js';
+import welcomeScreen from './screens/welcome-screen.js';
+import genreScreen from "./screens/genre-level-screen.js";
+import resultWinScreen from "./screens/win-screen";
+import resultTimeoutScreen from "./screens/timeout-screen";
+import resultFailScreen from "./screens/fail-screen";
+import artistScreen from './screens/artist-level-screen.js';
 
-const getView = (num) => {
-  mainView.innerHTML = ``;
-  mainView.appendChild(views[num]);
-
+const SCREENS = {
+  welcome: welcomeScreen,
+  genre: genreScreen,
+  artist: artistScreen,
+  resultWin: resultWinScreen,
+  resultFail: resultFailScreen,
+  resultTimeout: resultTimeoutScreen
 };
 
-getView(currentView);
+setScreens(SCREENS);
 
-document.addEventListener(`keydown`, function (event) {
-  if (event.altKey && (event.which === 37 || event.which === 39)) {
-    if (currentView > 0 && event.which === 37) {
-      getView(--currentView);
-    }
-
-    if (currentView < views.length - 1 && event.which === 39) {
-      getView(++currentView);
-    }
-  }
-});
-
-
+printScreen(`welcome`);
