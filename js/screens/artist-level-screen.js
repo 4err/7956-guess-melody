@@ -68,7 +68,7 @@ const templateNode = getElementFromHtml(template);
 const answerButtons = templateNode.querySelectorAll(`.main-answer`);
 for (let i = 0; i < answerButtons.length; i++) {
   answerButtons[i].addEventListener(`click`, function () {
-    printScreen(`welcome`);
+    printScreen(`genre`);
   });
 }
 export default templateNode;

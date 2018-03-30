@@ -12,7 +12,7 @@ let screens = null;
 export const getElementFromHtml = (html) => {
   let template = document.createElement(`template`);
   template.innerHTML = html;
-  return template.content.cloneNode(true);
+  return template.content.children[0];
 };
 
 export const setScreens = (s) => {
@@ -24,13 +24,12 @@ export const setScreens = (s) => {
  * @param {string} screenName
  */
 export const printScreen = (screenName) => {
-
   if (!screens) {
     throw new Error(`screens not initialized`);
   }
-  console.log(screens);
+
   let screen = screens[screenName];
   const mainView = document.querySelector(`section.main`);
   mainView.innerHTML = ``;
-  mainView.appendChild(screen).cloneNode(true);
+  mainView.appendChild(screen);
 };
