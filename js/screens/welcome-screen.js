@@ -2,7 +2,6 @@
  * Created by Denis on 30.03.2018.
  */
 import {getElementFromHtml, printScreen} from '../utils';
-import artistScreen from './artist-level-screen.js';
 
 const template = `
 <section class="main main--welcome">
@@ -19,7 +18,7 @@ const template = `
 const templateNode = getElementFromHtml(template);
 
 templateNode.querySelector(`.main-play`).addEventListener(`click`, function () {
-  printScreen(artistScreen);
+  printScreen(`artist`);
 });
 
 export default templateNode;

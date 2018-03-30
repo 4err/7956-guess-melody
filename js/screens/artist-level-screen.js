@@ -2,7 +2,6 @@
  * Created by Denis on 30.03.2018.
  */
 import {getElementFromHtml, printScreen} from "../utils";
-import genreScreen from "./genre-level-screen.js";
 
 const template = `
   <section class="main main--level main--level-artist">
@@ -69,7 +68,7 @@ const templateNode = getElementFromHtml(template);
 const answerButtons = templateNode.querySelectorAll(`.main-answer`);
 for (let i = 0; i < answerButtons.length; i++) {
   answerButtons[i].addEventListener(`click`, function () {
-    printScreen(genreScreen);
+    printScreen(`welcome`);
   });
 }
 export default templateNode;

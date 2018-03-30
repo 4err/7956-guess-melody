@@ -2,9 +2,6 @@
  * Created by Denis on 30.03.2018.
  */
 import {getElementFromHtml, printScreen} from "../utils";
-import resultWinScreen from "./win-screen";
-import resultTimeoutScreen from "./timeout-screen";
-import resultFailScreen from "./fail-screen";
 
 const template = `
   <section class="main main--level main--level-genre">
@@ -91,7 +88,7 @@ const template = `
   </section>
 `;
 const templateNode = getElementFromHtml(template);
-const results = [resultFailScreen, resultTimeoutScreen, resultWinScreen];
+const results = [`resultFail`, `resultTimeout`, `resultWin`];
 const answers = templateNode.querySelectorAll(`input[name="answer"]`);
 let sendButton = templateNode.querySelector(`.genre-answer-send`);
 
@@ -100,8 +97,7 @@ for (let i = 0; i < answers.length; i++) {
     let checkedNum = document.querySelectorAll(`input[name="answer"]:checked`).length;
     if (checkedNum > 0 && sendButton.disabled) {
       sendButton.disabled = false;
-    }
-    else if (checkedNum === 0) {
+    } else if (checkedNum === 0) {
       sendButton.disabled = true;
     }
   });
@@ -109,5 +105,6 @@ for (let i = 0; i < answers.length; i++) {
 
 sendButton.addEventListener(`click`, function () {
   printScreen(results[Math.floor(Math.random() * 3)]);
+  //printScreen(`artist`);
 });
 export default templateNode;

@@ -2,7 +2,6 @@
  * Created by Denis on 30.03.2018.
  */
 import {getElementFromHtml, printScreen} from "../utils";
-// import welcomeScreen from './welcome-screen.js';
 
 const template = `
 <section class="main main--result">
@@ -20,7 +19,7 @@ const template = `
 const templateNode = getElementFromHtml(template);
 
 templateNode.querySelector(`.main-replay`).addEventListener(`click`, function () {
-  printScreen(welcomeScreen);
+  printScreen(`welcome`);
 });
 
 export default templateNode;
