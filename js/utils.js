@@ -14,7 +14,10 @@ export const getElementFromHtml = (html) => {
   template.innerHTML = html;
   return template.content.children[0];
 };
-
+/**
+ *
+ * @param {Object} s
+ */
 export const setScreens = (s) => {
   screens = s;
 };

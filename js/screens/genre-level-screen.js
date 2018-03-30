@@ -105,6 +105,5 @@ for (let i = 0; i < answers.length; i++) {
 
 sendButton.addEventListener(`click`, function () {
   printScreen(results[Math.floor(Math.random() * 3)]);
-  //printScreen(`artist`);
 });
 export default templateNode;
