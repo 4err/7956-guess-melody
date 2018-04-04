@@ -1,6 +1,9 @@
 /**
  * Created by Denis on 03.04.2018.
  */
+
+import {plural} from '../utils.js';
+
 const COUNT_RULES = {
   isCorrect: 1,
   isFast: 1,
@@ -45,18 +48,20 @@ export const showResult = (statistic, currResult) => {
   const placesCount = statistic.length;
   const percent = Math.round((placesCount - place) / placesCount * 100);
 
-  return `Вы заняли ${place}-ое место из ${placesCount} игроков. Это лучше, чем у ${percent}% игроков`;
+  return `Вы заняли ${place}-ое место из ${placesCount} ${plural(placesCount, [`игрока`, `игроков`, `игроков`])}. Это лучше, чем у ${percent}% игроков`;
 };
 
 export const setTimer = (t) => {
   let timer = {
     time: t,
-    tick: function () {
+    tick() {
       if (t > 0) {
-        t--;
+        this.time--;
       } else {
-        console.log(`Таймер закончил работу`);
+        this.onComplete();
       }
+    },
+    onComplete() {
     }
   };
 
