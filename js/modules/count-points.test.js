@@ -2,7 +2,7 @@
  * Created by Denis on 03.04.2018.
  */
 import {assert} from "chai";
-import {countPoints, showResult} from "./count-points";
+import {countPoints, showResult, setTimer} from "./count-points";
 
 describe(`Count game points`, () => {
   const notEnoghAnswers = [
@@ -260,4 +260,23 @@ describe(`Show current player result`, () => {
     assert.equal(result3, `Вы заняли 6-ое место из 7 игроков. Это лучше, чем у 14% игроков`);
   });
 
+});
+
+describe(`Setup and check timer`, () => {
+  it(`should set correct time.`, () => {
+    let timer = setTimer(19);
+    assert.equal(timer.time, 19);
+  });
+
+  it(`should ticks.`, () => {
+    let timer = setTimer(19);
+    timer.tick();
+    assert.equal(timer.time, 18);
+  });
+
+  it(`should complete`, () => {
+    let timer = setTimer(1);
+    timer.tick();
+    assert.equal(timer.completed, 1);
+  });
 });

@@ -2,7 +2,7 @@
  * Created by Denis on 03.04.2018.
  */
 
-import {plural} from '../utils.js';
+import {plural} from "../utils.js";
 
 const COUNT_RULES = {
   isCorrect: 1,
@@ -54,14 +54,16 @@ export const showResult = (statistic, currResult) => {
 export const setTimer = (t) => {
   let timer = {
     time: t,
+    completed: 0,
     tick() {
-      if (t > 0) {
-        this.time--;
-      } else {
+      this.time--;
+
+      if (this.time <= 0) {
         this.onComplete();
       }
     },
     onComplete() {
+      this.completed = 1;
     }
   };
 
