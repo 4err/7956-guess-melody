@@ -21,7 +21,19 @@ const template = (question, answers) =>`
     </div>
 `;
 
-export default (question) => {
+export const artistScreen = (question) => {
   let answersTemplate = getAnswersTemplate(question.answers, `artist`);
   return template(question, answersTemplate);
+};
+
+export const artistScreenListeners = (node, callback) => {
+  let answers = [];
+  let time = 35;
+
+  let answerButtons = node.querySelectorAll(`.main-answer`);
+  for (let i = 0; i < answerButtons.length; i++) {
+    answerButtons[i].addEventListener(`click`, function () {
+      callback(answers, time);
+    });
+  }
 };

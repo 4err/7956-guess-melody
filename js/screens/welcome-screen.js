@@ -3,7 +3,7 @@
  */
 import {plural} from "../modules/count-points";
 
-export default (settings) => `
+export const welcomeScreen = (settings) => `
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
     <button class="main-play">Начать игру</button>
     <h2 class="title main-title">Правила игры</h2>
@@ -13,3 +13,9 @@ export default (settings) => `
       Удачи!
     </p>
 `;
+
+export const welcomeScreenListeners = (node, callback) => {
+  node.querySelector(`.main-play`).addEventListener(`click`, function () {
+    callback();
+  });
+};

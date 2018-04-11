@@ -13,28 +13,37 @@ const template = (question, answers) =>`
     </div>
 `;
 
-export default (question) => {
+export const genreScreen = (question) => {
   let answersTemplate = getAnswersTemplate(question.answers, `genre`);
   return template(question, answersTemplate);
 };
-// const templateNode = getElementFromHtml(template(question));
-//
-// const results = [`resultFail`, `resultTimeout`, `resultWin`];
-// const answers = templateNode.querySelectorAll(`input[name="answer"]`);
-// let sendButton = templateNode.querySelector(`.genre-answer-send`);
-//
-// for (let i = 0; i < answers.length; i++) {
-//   answers[i].addEventListener(`change`, function () {
-//     let checkedNum = document.querySelectorAll(`input[name="answer"]:checked`).length;
-//     if (checkedNum > 0 && sendButton.disabled) {
-//       sendButton.disabled = false;
-//     } else if (checkedNum === 0) {
-//       sendButton.disabled = true;
-//     }
-//   });
-// }
-//
-// sendButton.addEventListener(`click`, function () {
-//   printScreen(results[Math.floor(Math.random() * 3)]);
-// });
-// export default templateNode;
+
+export const genreScreenListeners = (node, callback) => {
+  let answers = [];
+  let time = 35;
+  let sendButton = node.querySelector(`.genre-answer-send`);
+  let answerButtons = node.querySelectorAll(`input[name="answer"]`);
+
+  for (let i = 0; i < answerButtons.length; i++) {
+    answerButtons[i].addEventListener(`change`, function () {
+      let checkedNum = document.querySelectorAll(`input[name="answer"]:checked`).length;
+      if (checkedNum > 0 && sendButton.disabled) {
+        sendButton.disabled = false;
+      } else if (checkedNum === 0) {
+        sendButton.disabled = true;
+      }
+    });
+  }
+
+  sendButton.addEventListener(`click`, function (e) {
+    e.preventDefault();
+
+    let checked = document.querySelectorAll(`input[name="answer"]:checked`);
+    for (let it of checked) {
+      answers.push(it.value);
+    }
+
+    callback(answers, time);
+  });
+};
+

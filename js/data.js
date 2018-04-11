@@ -6,6 +6,13 @@ export const defaultSettings = {
   maxErrors: 3,
 };
 
+export const COUNT_RULES = {
+  isCorrect: 1,
+  isFast: 1,
+  isFail: 2,
+  fastTime: 30
+};
+
 export const initialGameStatus = {
   questionNum: -1,
   time: defaultSettings.time,
