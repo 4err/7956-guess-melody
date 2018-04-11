@@ -36,7 +36,7 @@ export const checkAnswer = (answers, time) => {
   let err = 0;
   let answer = {
     isCorrect: true,
-    time: time
+    time
   };
 
   for (let it of answers) {

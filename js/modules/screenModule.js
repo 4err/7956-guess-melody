@@ -84,8 +84,8 @@ export const nextScreen = () => {
 
 /**
  *
- * @param screenName
- * @param params
+ * @param {string} screenName
+ * @param {Object} params
  */
 const printScreen = (screenName, params) => {
   if (!screens) {
@@ -102,7 +102,6 @@ const printScreen = (screenName, params) => {
   }
 
   let template = getElementFromHtml(screen.template(params));
-  
   if (screenName !== `header`) {
     screen.listener(template, (function (answers, time) {
       if (screen.isLevel) {

@@ -1,5 +1,12 @@
-/**
+/*
  * Created by Denis on 10.04.2018.
+ */
+
+/**
+ *
+ * @param {Object} answer
+ * @param {int} num
+ * @return {Object}
  */
 const getGenreAnswer = (answer, num) => `
     <div class="genre-answer">

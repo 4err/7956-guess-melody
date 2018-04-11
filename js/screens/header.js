@@ -1,6 +1,7 @@
-/**
+/*
  * Created by Denis on 10.04.2018.
  */
+
 export default (state) => `
 <div class="header">
 <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
@@ -16,8 +17,8 @@ export default (state) => `
     </svg>
     <div class="main-mistakes">
     ${new Array(state.mistakes)
-  .fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`)
-  .join(``)}
+      .fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`)
+      .join(``)}
     </div>
 </div>
 `;
