@@ -30,9 +30,11 @@ export const artistScreenListeners = (node, callback) => {
   let answers = [];
   let time = 35;
 
-  let answerButtons = node.querySelectorAll(`.main-answer`);
+  let answerButtons = node.querySelectorAll(`input[name="answer"]`);
   for (let i = 0; i < answerButtons.length; i++) {
-    answerButtons[i].addEventListener(`click`, function () {
+    answerButtons[i].addEventListener(`change`, function () {
+      let answer = answerButtons[i].value;
+      answers.push(answer);
       callback(answers, time);
     });
   }
