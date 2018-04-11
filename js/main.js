@@ -2,23 +2,41 @@
  * Created by Denis on 27.03.2018.
  */
 
-import {printScreen, setScreens} from './utils.js';
+import {startGame, setScreens} from './utils.js';
 import welcomeScreen from './screens/welcome-screen.js';
 import genreScreen from "./screens/genre-level-screen.js";
-import resultWinScreen from "./screens/win-screen";
-import resultTimeoutScreen from "./screens/timeout-screen";
-import resultFailScreen from "./screens/fail-screen";
+import resultScreen from "./screens/result-screen";
 import artistScreen from './screens/artist-level-screen.js';
+import header from "./screens/header";
 
 const SCREENS = {
-  welcome: welcomeScreen,
-  genre: genreScreen,
-  artist: artistScreen,
-  resultWin: resultWinScreen,
-  resultFail: resultFailScreen,
-  resultTimeout: resultTimeoutScreen
+  welcome: {
+    isLevel: false,
+    type: `welcome`,
+    template: welcomeScreen
+  },
+  header: {
+    isLevel: false,
+    type: ``,
+    template: header
+  },
+  genre: {
+    isLevel: true,
+    type: `genre`,
+    template: genreScreen
+  },
+  artist: {
+    isLevel: true,
+    type: `artist`,
+    template: artistScreen
+  },
+  result: {
+    isLevel: false,
+    type: `result`,
+    template: resultScreen
+  }
 };
 
 setScreens(SCREENS);
 
-printScreen(`welcome`);
+startGame();

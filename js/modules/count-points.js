@@ -2,13 +2,43 @@
  * Created by Denis on 03.04.2018.
  */
 
-import {plural} from "../utils.js";
-
 const COUNT_RULES = {
   isCorrect: 1,
   isFast: 1,
   isFail: 2,
   fastTime: 30
+};
+
+let resultsTemplates = {
+  timeout: {
+    title: `Увы и ах!`,
+    replay: `Попробовать ещё раз`
+  },
+  fail: {
+    title: `Какая жалость!`,
+    replay: `Попробовать ещё раз`
+  },
+  win: {
+    title: `Вы настоящий меломан!`,
+    replay: `Сыграть ещё раз`
+  }
+};
+
+export const plural = (num, pluralArr) => {
+  let n = Math.abs(num);
+
+  n %= 100;
+  if (n >= 5 && n <= 20) {
+    return pluralArr[2];
+  }
+  n %= 10;
+  if (n === 1) {
+    return pluralArr[0];
+  }
+  if (n >= 2 && n <= 4) {
+    return pluralArr[1];
+  }
+  return pluralArr[3];
 };
 
 export const countPoints = (answers = [], notes = 3) => {
@@ -34,21 +64,29 @@ export const countPoints = (answers = [], notes = 3) => {
 };
 
 export const showResult = (statistic, currResult) => {
+  let result = ``;
+
   if (currResult.time === 0) {
-    return `Время вышло! Вы не успели отгадать все мелодии`;
+    result = resultsTemplates.timeout;
+    result[`stat`] = `Время вышло!\nВы не успели отгадать все мелодии`;
+    return result;
   }
 
-  if (currResult.notes === 0) {
-    return `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
+  if (currResult.mistakes === 3) {
+    result = resultsTemplates.fail;
+    result[`stat`] = `У вас закончились все попытки.<br> Ничего, повезёт в следующий раз!`;
+    return result;
   }
 
+  result = resultsTemplates.win;
   statistic.push(currResult.points);
   statistic = statistic.sort((left, right) => right - left);
   const place = statistic.indexOf(currResult.points) + 1;
   const placesCount = statistic.length;
   const percent = Math.round((placesCount - place) / placesCount * 100);
 
-  return `Вы заняли ${place}-ое место из ${placesCount} ${plural(placesCount, [`игрока`, `игроков`, `игроков`])}. Это лучше, чем у ${percent}% игроков`;
+  result.stat = `Вы заняли ${place}-ое место из ${placesCount} ${plural(placesCount, [`игрока`, `игроков`, `игроков`])}. Это лучше, чем у ${percent}% игроков`;
+  return result;
 };
 
 export const setTimer = (t) => {

@@ -217,27 +217,27 @@ describe(`Show current player result`, () => {
   const otherPlayersResults = [10, 5, 12, 18, 19, 1];
   const failPlayerByTime = {
     points: 3,
-    notes: 3,
+    mistakes: 3,
     time: 0
   };
   const failPlayerByNotes = {
     points: 3,
-    notes: 0,
+    mistakes: 0,
     time: 24
   };
   const winTop = {
     points: 20,
-    notes: 3,
+    mistakes: 3,
     time: 12
   };
   const winMiddle = {
     points: 15,
-    notes: 1,
+    mistakes: 1,
     time: 12
   };
   const winBottom = {
     points: 1,
-    notes: 1,
+    mistakes: 1,
     time: 12
   };
   it(`should return fail by time.`, () => {
