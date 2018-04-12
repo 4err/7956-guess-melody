@@ -2,7 +2,8 @@
  * Created by Denis on 03.04.2018.
  */
 import {assert} from "chai";
-import {countPoints, showResult, setTimer} from "./count-points";
+import {countPoints, showResult} from "./game";
+import {setTimer} from "../utils";
 
 describe(`Count game points`, () => {
   const notEnoghAnswers = [
@@ -212,52 +213,52 @@ describe(`Count game points`, () => {
 });
 
 describe(`Show current player result`, () => {
-  const failByTime = `Время вышло! Вы не успели отгадать все мелодии`;
-  const failByNotes = `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
+  const failByTime = `Время вышло!<br>Вы не успели отгадать все мелодии`;
+  const failByNotes = `У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!`;
   const otherPlayersResults = [10, 5, 12, 18, 19, 1];
   const failPlayerByTime = {
     points: 3,
-    notes: 3,
+    mistakes: 3,
     time: 0
   };
   const failPlayerByNotes = {
     points: 3,
-    notes: 0,
+    mistakes: 3,
     time: 24
   };
   const winTop = {
     points: 20,
-    notes: 3,
+    mistakes: 0,
     time: 12
   };
   const winMiddle = {
     points: 15,
-    notes: 1,
+    mistakes: 1,
     time: 12
   };
   const winBottom = {
     points: 1,
-    notes: 1,
+    mistakes: 1,
     time: 12
   };
   it(`should return fail by time.`, () => {
     let result = showResult(otherPlayersResults, failPlayerByTime);
-    assert.equal(result, failByTime);
+    assert.equal(result.stat, failByTime);
   });
   it(`should return fail by notes.`, () => {
     let result = showResult(otherPlayersResults, failPlayerByNotes);
-    assert.equal(result, failByNotes);
+    assert.equal(result.stat, failByNotes);
   });
 
   it(`should return wins.`, () => {
     let result1 = showResult(otherPlayersResults.slice(), winTop);
-    assert.equal(result1, `Вы заняли 1-ое место из 7 игроков. Это лучше, чем у 86% игроков`);
+    assert.equal(result1.stat, `Вы заняли 1-ое место из 7 игроков. Это лучше, чем у 86% игроков`);
 
     let result2 = showResult(otherPlayersResults.slice(), winMiddle);
-    assert.equal(result2, `Вы заняли 3-ое место из 7 игроков. Это лучше, чем у 57% игроков`);
+    assert.equal(result2.stat, `Вы заняли 3-ое место из 7 игроков. Это лучше, чем у 57% игроков`);
 
     let result3 = showResult(otherPlayersResults.slice(), winBottom);
-    assert.equal(result3, `Вы заняли 6-ое место из 7 игроков. Это лучше, чем у 14% игроков`);
+    assert.equal(result3.stat, `Вы заняли 6-ое место из 7 игроков. Это лучше, чем у 14% игроков`);
   });
 
 });

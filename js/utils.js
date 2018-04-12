@@ -2,41 +2,30 @@
  * Created by Denis on 30.03.2018.
  */
 
-let screens = null;
-
 /**
- *
+ * Create new node from existing html code
  * @param {string} html
  * @return {Node}
  */
 export const getElementFromHtml = (html) => {
   let template = document.createElement(`template`);
   template.innerHTML = html;
-  return template.content.children[0];
-};
-/**
- *
- * @param {Object} s
- */
-export const setScreens = (s) => {
-  screens = s;
+  return template.content;
 };
 
 /**
- *
- * @param {string} screenName
+ * Slow cloning obj function
+ * @param {Object} o
+ * @return {Object}
  */
-export const printScreen = (screenName) => {
-  if (!screens) {
-    throw new Error(`screens not initialized`);
-  }
+export const clone = (o) => JSON.parse(JSON.stringify(o));
 
-  let screen = screens[screenName];
-  const mainView = document.querySelector(`section.main`);
-  mainView.innerHTML = ``;
-  mainView.appendChild(screen);
-};
-
+/**
+ * Plural function
+ * @param {int} num
+ * @param {Array} pluralArr
+ * @return {*}
+ */
 export const plural = (num, pluralArr) => {
   let n = Math.abs(num);
 
@@ -52,4 +41,28 @@ export const plural = (num, pluralArr) => {
     return pluralArr[1];
   }
   return pluralArr[3];
+};
+
+/**
+ * Creating timer
+ * @param {int} t
+ * @return {{time: *, completed: number, tick: (function()), onComplete: (function())}}
+ */
+export const setTimer = (t) => {
+  let timer = {
+    time: t,
+    completed: 0,
+    tick() {
+      this.time--;
+
+      if (this.time <= 0) {
+        this.onComplete();
+      }
+    },
+    onComplete() {
+      this.completed = 1;
+    }
+  };
+
+  return timer;
 };
