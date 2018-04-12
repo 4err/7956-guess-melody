@@ -82,13 +82,13 @@ export const showResult = (statistic, currResult) => {
 
   if (currResult.time === 0) {
     result = resultsTemplates.timeout;
-    result[`stat`] = `Время вышло!\nВы не успели отгадать все мелодии`;
+    result[`stat`] = `Время вышло!<br>Вы не успели отгадать все мелодии`;
     return result;
   }
 
   if (currResult.mistakes === 3) {
     result = resultsTemplates.fail;
-    result[`stat`] = `У вас закончились все попытки.<br> Ничего, повезёт в следующий раз!`;
+    result[`stat`] = `У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!`;
     return result;
   }
 

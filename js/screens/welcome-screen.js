@@ -1,7 +1,7 @@
 /**
  * Created by Denis on 30.03.2018.
  */
-import {plural} from "../modules/count-points";
+import {plural} from "../utils";
 
 export const welcomeScreen = (settings) => `
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
