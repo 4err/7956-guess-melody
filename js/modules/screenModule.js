@@ -2,11 +2,11 @@
  * Created by Denis on 11.04.2018.
  */
 import {defaultSettings, questions} from "../data";
-import {welcomeScreen, welcomeScreenListeners} from "../screens/welcome-screen.js";
-import {genreScreen, genreScreenListeners} from "../screens/genre-level-screen.js";
-import {resultScreen, resultScreenListeners} from "../screens/result-screen";
-import {artistScreen, artistScreenListeners} from "../screens/artist-level-screen.js";
-import header from "../screens/header";
+import {welcomeScreen, welcomeScreenListeners} from "../views/welcome-screen.js";
+import {genreScreen, genreScreenListeners} from "../views/genre-level-screen.js";
+import {resultScreen, resultScreenListeners} from "../views/result-screen";
+import {artistScreen, artistScreenListeners} from "../views/artist-level-screen.js";
+import header from "../views/header";
 import {getElementFromHtml} from "../utils";
 import {getResult, gameStatus, checkAnswer, startGame} from "./game";
 let screens = {
