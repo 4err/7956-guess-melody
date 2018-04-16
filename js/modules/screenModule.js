@@ -2,43 +2,38 @@
  * Created by Denis on 11.04.2018.
  */
 import {defaultSettings, questions} from "../data";
-import {welcomeScreen, welcomeScreenListeners} from "../views/welcome-screen.js";
-import {genreScreen, genreScreenListeners} from "../views/genre-level-screen.js";
-import {resultScreen, resultScreenListeners} from "../views/result-screen";
-import {artistScreen, artistScreenListeners} from "../views/artist-level-screen.js";
-import header from "../views/header";
+import {WelcomeView} from "../views/welcome-screen.js";
+import {GenreView} from "../views/genre-level-screen.js";
+import {ResultView} from "../views/result-screen";
+import {ArtistView} from "../views/artist-level-screen.js";
+import {HeaderView} from "../views/header";
 import {getElementFromHtml} from "../utils";
 import {getResult, gameStatus, checkAnswer, startGame} from "./game";
 let screens = {
   welcome: {
     isLevel: false,
     type: `welcome`,
-    template: welcomeScreen,
-    listener: welcomeScreenListeners
+    Class: WelcomeView
   },
   header: {
     isLevel: false,
     type: ``,
-    template: header,
-    listener: ``
+    Class: HeaderView
   },
   genre: {
     isLevel: true,
     type: `genre`,
-    template: genreScreen,
-    listener: genreScreenListeners
+    Class: GenreView
   },
   artist: {
     isLevel: true,
     type: `artist`,
-    template: artistScreen,
-    listener: artistScreenListeners
+    Class: ArtistView
   },
   result: {
     isLevel: false,
     type: `result`,
-    template: resultScreen,
-    listener: resultScreenListeners
+    Class: ResultView
   }
 };
 
@@ -92,6 +87,8 @@ const printScreen = (screenName, params) => {
     throw new Error(`screens not initialized`);
   }
 
+  console.log(params);
+
   let screen = screens[screenName];
   const mainView = document.querySelector(`section.main`);
 
@@ -101,17 +98,22 @@ const printScreen = (screenName, params) => {
     printScreen(`header`, gameStatus);
   }
 
-  let template = getElementFromHtml(screen.template(params));
-  if (screenName !== `header`) {
-    screen.listener(template, (function (answers, time) {
-      if (screen.isLevel) {
-        checkAnswer(answers, time);
-      }
-      if (screenName === `result`) {
-        startGame();
-      }
-      nextScreen();
-    }));
-  }
-  mainView.appendChild(template);
+  let view = new screen.Class(params, screen.isLevel, screen.type);
+
+  console.log(view);
+
+  let template1 = view.element();
+
+  // if (screenName !== `header`) {
+  //   screen.onClick(template, (function (answers, time) {
+  //     if (screen.isLevel) {
+  //       checkAnswer(answers, time);
+  //     }
+  //     if (screenName === `result`) {
+  //       startGame();
+  //     }
+  //     nextScreen();
+  //   }));
+  // }
+  mainView.appendChild(template1);
 };
