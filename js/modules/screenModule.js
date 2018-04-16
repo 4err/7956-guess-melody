@@ -2,43 +2,37 @@
  * Created by Denis on 11.04.2018.
  */
 import {defaultSettings, questions} from "../data";
-import {welcomeScreen, welcomeScreenListeners} from "../screens/welcome-screen.js";
-import {genreScreen, genreScreenListeners} from "../screens/genre-level-screen.js";
-import {resultScreen, resultScreenListeners} from "../screens/result-screen";
-import {artistScreen, artistScreenListeners} from "../screens/artist-level-screen.js";
-import header from "../screens/header";
-import {getElementFromHtml} from "../utils";
+import {WelcomeView} from "../views/welcome-screen.js";
+import {GenreView} from "../views/genre-level-screen.js";
+import {ResultView} from "../views/result-screen";
+import {ArtistView} from "../views/artist-level-screen.js";
+import {HeaderView} from "../views/header";
 import {getResult, gameStatus, checkAnswer, startGame} from "./game";
 let screens = {
   welcome: {
     isLevel: false,
     type: `welcome`,
-    template: welcomeScreen,
-    listener: welcomeScreenListeners
+    Class: WelcomeView
   },
   header: {
     isLevel: false,
     type: ``,
-    template: header,
-    listener: ``
+    Class: HeaderView
   },
   genre: {
     isLevel: true,
     type: `genre`,
-    template: genreScreen,
-    listener: genreScreenListeners
+    Class: GenreView
   },
   artist: {
     isLevel: true,
     type: `artist`,
-    template: artistScreen,
-    listener: artistScreenListeners
+    Class: ArtistView
   },
   result: {
     isLevel: false,
     type: `result`,
-    template: resultScreen,
-    listener: resultScreenListeners
+    Class: ResultView
   }
 };
 
@@ -101,17 +95,20 @@ const printScreen = (screenName, params) => {
     printScreen(`header`, gameStatus);
   }
 
-  let template = getElementFromHtml(screen.template(params));
+  let view = new screen.Class(params, screen.isLevel, screen.type);
+  let template = view.element;
+
   if (screenName !== `header`) {
-    screen.listener(template, (function (answers, time) {
+    view.onClick = () => {
       if (screen.isLevel) {
-        checkAnswer(answers, time);
+        let result = view.answer;
+        checkAnswer(result.answer, result.time);
       }
       if (screenName === `result`) {
         startGame();
       }
       nextScreen();
-    }));
+    };
   }
   mainView.appendChild(template);
 };

@@ -24,6 +24,7 @@ export const initialGameStatus = {
 export const questions = [
   {
     type: `artist`,
+    audio: `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
     answers: [
       {
         audio: `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
