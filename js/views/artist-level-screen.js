@@ -12,7 +12,7 @@ export class ArtistView extends LevelView {
       <h2 class="title main-title">Кто исполняет эту песню?</h2>
       <div class="player-wrapper">
         <div class="player">
-          <audio src="${this.data.question.audio}"></audio>
+          <audio src="${this.data.audio}"></audio>
           <button class="player-control player-control--pause"></button>
           <div class="player-track">
             <span class="player-status"></span>
@@ -38,15 +38,12 @@ export class ArtistView extends LevelView {
   }
 
   bind(node) {
-    let answers = [];
-    let time = 35;
-
     let answerButtons = node.querySelectorAll(`input[name="answer"]`);
     for (let i = 0; i < answerButtons.length; i++) {
       answerButtons[i].addEventListener(`change`, () => {
         let answer = answerButtons[i].value;
-        answers.push(answer);
-        this.onClick(answers, time);
+        this._answers.push(answer);
+        this.onClick(this._answers, this.time);
       });
     }
   }
@@ -55,40 +52,3 @@ export class ArtistView extends LevelView {
   }
 
 }
-
-// const template = (question, answers) =>`
-//     <div class="main-wrap">
-//       <h2 class="title main-title">Кто исполняет эту песню?</h2>
-//       <div class="player-wrapper">
-//         <div class="player">
-//           <audio src="${question.audio}"></audio>
-//           <button class="player-control player-control--pause"></button>
-//           <div class="player-track">
-//             <span class="player-status"></span>
-//           </div>
-//         </div>
-//       </div>
-//       <form class="main-list">
-//           ${answers}
-//       </form>
-//     </div>
-// `;
-//
-// export const artistScreen = (question) => {
-//   let answersTemplate = getAnswersTemplate(question.answers, `artist`);
-//   return template(question, answersTemplate);
-// };
-//
-// export const artistScreenListeners = (node, callback) => {
-//   let answers = [];
-//   let time = 35;
-//
-//   let answerButtons = node.querySelectorAll(`input[name="answer"]`);
-//   for (let i = 0; i < answerButtons.length; i++) {
-//     answerButtons[i].addEventListener(`change`, function () {
-//       let answer = answerButtons[i].value;
-//       answers.push(answer);
-//       callback(answers, time);
-//     });
-//   }
-// };

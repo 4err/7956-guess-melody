@@ -24,8 +24,11 @@ export class AbstractView {
 
   get element() {
     if (this._element === null) {
-      let node = this.render(this.template(this.data));
+      let node = this.render(this.template);
+
       this.bind(node);
+
+      this._element = node;
     }
 
     return this._element;

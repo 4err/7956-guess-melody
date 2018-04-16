@@ -7,7 +7,6 @@ import {GenreView} from "../views/genre-level-screen.js";
 import {ResultView} from "../views/result-screen";
 import {ArtistView} from "../views/artist-level-screen.js";
 import {HeaderView} from "../views/header";
-import {getElementFromHtml} from "../utils";
 import {getResult, gameStatus, checkAnswer, startGame} from "./game";
 let screens = {
   welcome: {
@@ -87,8 +86,6 @@ const printScreen = (screenName, params) => {
     throw new Error(`screens not initialized`);
   }
 
-  console.log(params);
-
   let screen = screens[screenName];
   const mainView = document.querySelector(`section.main`);
 
@@ -99,21 +96,19 @@ const printScreen = (screenName, params) => {
   }
 
   let view = new screen.Class(params, screen.isLevel, screen.type);
+  let template = view.element;
 
-  console.log(view);
-
-  let template1 = view.element();
-
-  // if (screenName !== `header`) {
-  //   screen.onClick(template, (function (answers, time) {
-  //     if (screen.isLevel) {
-  //       checkAnswer(answers, time);
-  //     }
-  //     if (screenName === `result`) {
-  //       startGame();
-  //     }
-  //     nextScreen();
-  //   }));
-  // }
-  mainView.appendChild(template1);
+  if (screenName !== `header`) {
+    view.onClick = () => {
+      if (screen.isLevel) {
+        let result = view.answer;
+        checkAnswer(result.answer, result.time);
+      }
+      if (screenName === `result`) {
+        startGame();
+      }
+      nextScreen();
+    };
+  }
+  mainView.appendChild(template);
 };
