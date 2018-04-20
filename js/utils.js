@@ -3,17 +3,6 @@
  */
 
 /**
- * Create new node from existing html code
- * @param {string} html
- * @return {Node}
- */
-export const getElementFromHtml = (html) => {
-  let template = document.createElement(`template`);
-  template.innerHTML = html;
-  return template.content;
-};
-
-/**
  * Slow cloning obj function
  * @param {Object} o
  * @return {Object}
