@@ -27,6 +27,10 @@ export class GameScreen {
     this.nextQuestion();
 
     this._interval = setInterval(() => {
+      if (this.model.status === Result.TIME) {
+        this.endGame();
+      }
+
       this.model.tick();
       this.updateHeader();
     }, 1000);

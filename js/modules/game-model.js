@@ -49,6 +49,9 @@ export class GameModel {
 
   tick() {
     this._state.time--;
+    if (this._state.time <= 0) {
+      this._status = Result.TIME;
+    }
   }
 
   wrongAnswer() {
@@ -61,10 +64,6 @@ export class GameModel {
   }
 
   updateStatus() {
-    if (this._state.time === 0) {
-      this._status = Result.TIME;
-    }
-
     if (this._state.mistakes === this._state.maxErrors) {
       this._status = Result.MISTAKES;
     }
