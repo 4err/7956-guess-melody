@@ -20,11 +20,12 @@ export class WelcomeView extends AbstractView {
 
   bind(node) {
     node.querySelector(`.main-play`).addEventListener(`click`, () => {
-      this.onClick();
+      this.onStart();
     });
   }
 
-  onClick() {
+  onStart() {
+
   }
 
 }

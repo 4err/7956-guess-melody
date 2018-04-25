@@ -3,9 +3,7 @@
  */
 
 export class AbstractView {
-  constructor(data = ``, isLevel = false, type = ``) {
-    this.isLevel = isLevel;
-    this.type = type;
+  constructor(data = ``) {
     this.data = data;
     this._element = null;
   }
@@ -14,9 +12,9 @@ export class AbstractView {
   }
 
   render(html) {
-    let template = document.createElement(`template`);
+    let template = document.createElement(`div`);
     template.innerHTML = html;
-    return template.content;
+    return template;
   }
 
   bind() {

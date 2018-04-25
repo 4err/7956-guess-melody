@@ -14,7 +14,7 @@ export class HeaderView extends AbstractView {
         class="timer-line"
         style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
       <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
-        <span class="timer-value-mins">${Math.round(this.data.time / 60)}</span><!--    
+        <span class="timer-value-mins">${Math.floor(this.data.time / 60)}</span><!--    
         --><span class="timer-value-dots">:</span><!--
         --><span class="timer-value-secs">${this.data.time % 60}</span>
       </div>
