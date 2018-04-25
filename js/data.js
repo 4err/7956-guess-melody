@@ -2,7 +2,7 @@
  * Created by Denis on 10.04.2018.
  */
 export const defaultSettings = {
-  time: 10,
+  time: 300,
   maxErrors: 3,
 };
 

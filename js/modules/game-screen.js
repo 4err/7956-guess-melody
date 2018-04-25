@@ -37,6 +37,7 @@ export class GameScreen {
   }
 
   endGame() {
+    clearInterval(this._interval);
     this.onEnd(this.model);
   }
 
