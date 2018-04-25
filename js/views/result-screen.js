@@ -17,11 +17,11 @@ export class ResultView extends AbstractView {
 
   bind(node) {
     node.querySelector(`.main-replay`).addEventListener(`click`, () => {
-      this.onClick();
+      this.onRestart();
     });
   }
 
-  onClick() {
-  }
+  onRestart() {
 
+  }
 }

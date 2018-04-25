@@ -1,10 +1,8 @@
 /**
  * Created by Denis on 11.04.2018.
  */
-import {COUNT_RULES, initialGameStatus, questions} from "../data";
-import {clone, plural} from "../utils";
-
-export let gameStatus = null;
+import {COUNT_RULES, questions} from "../data";
+import {plural} from "../utils";
 
 let resultsTemplates = {
   timeout: {
@@ -21,38 +19,8 @@ let resultsTemplates = {
   }
 };
 
-export const startGame = () => {
-  gameStatus = clone(initialGameStatus);
-};
-
-
-export const getResult = () => {
-  gameStatus.points = countPoints(gameStatus.answers);
-  return showResult([], gameStatus);
-};
-
-export const checkAnswer = (answers, time) => {
-  let curr = questions[gameStatus.questionNum - 1].answers;
-  let err = 0;
-  let answer = {
-    isCorrect: true,
-    time
-  };
-
-  for (let it of answers) {
-    if (!curr[it].isCorrect) {
-      err++;
-    }
-  }
-
-  if (err > 0) {
-    gameStatus.mistakes++;
-    answer.isCorrect = false;
-  }
-
-  gameStatus.answers.push(answer);
-
-  return gameStatus;
+export const getQuestion = (n) => {
+  return questions[n];
 };
 
 export const countPoints = (answers = [], notes = 3) => {

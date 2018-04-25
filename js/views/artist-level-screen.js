@@ -43,7 +43,7 @@ export class ArtistView extends LevelView {
       answerButtons[i].addEventListener(`change`, () => {
         let answer = answerButtons[i].value;
         this._answers.push(answer);
-        this.onClick(this._answers, this.time);
+        this.onClick(this._answers);
       });
     }
   }
