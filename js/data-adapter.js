@@ -25,18 +25,14 @@ export const adaptServerData = (data) => {
 };
 
 const adaptArtistAnswers = (answers) =>
-  answers.map((answer) => {
-    return {
-      name: answer.title,
-      pic: answer.image.url,
-      isCorrect: answer.isCorrect
-    };
-  });
+  answers.map((answer) => ({
+    name: answer.title,
+    pic: answer.image.url,
+    isCorrect: answer.isCorrect
+  }));
 
 const adaptGenreAnswers = (answers, genre) =>
-  answers.map((answer) => {
-    return {
-      audio: answer.src,
-      isCorrect: answer.genre === genre
-    };
-  });
+  answers.map((answer) => ({
+    audio: answer.src,
+    isCorrect: answer.genre === genre
+  }));

@@ -31,8 +31,6 @@ const checkStatus = (response) => {
   }
 };
 
-let questionsData;
-
 export class Application {
 
   static start() {
@@ -40,22 +38,21 @@ export class Application {
         .then(checkStatus)
         .then((response) => response.json())
         .then((data)=>adaptServerData(data))
-        .then(Application.showWelcome);
+        .then((data)=>Application.showWelcome(data));
   }
 
   static showWelcome(data) {
-    questionsData = data;
     const welcome = new WelcomeView(defaultSettings);
     welcome.onStart = () => {
-      Application.showGame();
+      this.showGame(data);
     };
     changeView(welcome.element, `welcome`);
   }
 
-  static showGame() {
-    const gameScreen = new GameScreen(new GameModel(questionsData));
+  static showGame(data) {
+    const gameScreen = new GameScreen(new GameModel(data));
     gameScreen.onEnd = (stats) => {
-      Application.showStats(stats);
+      this.showStats(stats);
     };
     changeView(gameScreen.element, ``, true);
     gameScreen.init();
@@ -64,7 +61,7 @@ export class Application {
   static showStats(model) {
     const results = new ResultView(model.result);
     results.onRestart = () => {
-      Application.start();
+      this.start();
     };
     changeView(results.element, `result`);
   }
