@@ -16,7 +16,7 @@ export class HeaderView extends AbstractView {
       <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
         <span class="timer-value-mins">${Math.floor(this.data.time / 60)}</span><!--    
         --><span class="timer-value-dots">:</span><!--
-        --><span class="timer-value-secs">${("0" + (this.data.time % 60)).substr(-2)}</span>
+        --><span class="timer-value-secs">${(`0` + (this.data.time % 60)).substr(-2)}</span>
       </div>
     </svg>
     <div class="main-mistakes">
