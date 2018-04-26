@@ -3,14 +3,15 @@
  */
 
 import {initialGameStatus, Result} from "../data";
-import {getQuestion, countPoints, showResult} from "./game";
+import {countPoints, showResult} from "./game";
 import {clone} from "../utils";
 
 export class GameModel {
-  constructor() {
-    this.restart();
-
+  constructor(questions) {
+    this._questions = questions;
     this._status = Result.NEXT_LEVEL;
+
+    this.restart();
   }
 
   get state() {
@@ -34,11 +35,11 @@ export class GameModel {
   }
 
   hasNextQuestion() {
-    return getQuestion(this._state.questionNum + 1) !== void 0;
+    return this.getQuestion(this._state.questionNum + 1) !== void 0;
   }
 
   nextQuestion() {
-    this._state.question = getQuestion(this._state.questionNum + 1);
+    this._state.question = this.getQuestion(this._state.questionNum + 1);
     this._state.questionNum++;
   }
 
@@ -76,5 +77,9 @@ export class GameModel {
   get result() {
     this._state.points = countPoints(this._state.answers);
     return showResult([], this._state);
+  }
+
+  getQuestion(n) {
+    return this._questions[n];
   }
 }

@@ -1,7 +1,7 @@
 /**
  * Created by Denis on 11.04.2018.
  */
-import {COUNT_RULES, questions} from "../data";
+import {COUNT_RULES} from "../data";
 import {plural} from "../utils";
 
 let resultsTemplates = {
@@ -17,10 +17,6 @@ let resultsTemplates = {
     title: `Вы настоящий меломан!`,
     replay: `Сыграть ещё раз`
   }
-};
-
-export const getQuestion = (n) => {
-  return questions[n];
 };
 
 export const countPoints = (answers = [], notes = 3) => {

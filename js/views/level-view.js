@@ -19,6 +19,43 @@ export class LevelView extends AbstractView {
 
   }
 
+  stopAllAudio() {
+    const audios = this._element.querySelectorAll(`audio`);
+
+    for (const audio of audios) {
+      audio.pause();
+      audio.nextElementSibling.classList.remove(`player-control--pause`);
+    }
+  }
+
+  bindAudio() {
+    const audioButtons = this._element.querySelectorAll(`.player .player-control`);
+
+    for (const button of audioButtons) {
+      button.addEventListener(`click`, (e) => {
+        e.preventDefault();
+
+        if (button.previousElementSibling.paused === false) {
+          button.previousElementSibling.pause();
+        } else {
+          this.stopAllAudio();
+          button.previousElementSibling.play();
+        }
+
+        button.classList.toggle(`player-control--pause`);
+
+      });
+    }
+
+    this.audioAutoStart();
+  }
+
+  audioAutoStart() {
+    const audio = this._element.querySelector(`audio`);
+    audio.play();
+    audio.nextElementSibling.classList.toggle(`player-control--pause`);
+  }
+
   buildAnswers() {
     let answersArr = [];
     for (let i = 0; i < this.data.answers.length; i++) {

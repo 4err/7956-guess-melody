@@ -23,7 +23,7 @@ export class GenreView extends LevelView {
           <div class="player-wrapper">
             <div class="player">
               <audio src="${answer.audio}"></audio>
-              <button class="player-control player-control--pause"></button>
+              <button class="player-control"></button>
               <div class="player-track">
                 <span class="player-status"></span>
               </div>
@@ -35,6 +35,7 @@ export class GenreView extends LevelView {
   }
 
   bind(node) {
+    this.bindAudio();
     let sendButton = node.querySelector(`.genre-answer-send`);
     let answerButtons = node.querySelectorAll(`input[name="answer"]`);
 
