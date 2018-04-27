@@ -42,6 +42,7 @@ export class Application {
   }
 
   static showWelcome(data) {
+    console.log(data);
     const welcome = new WelcomeView(defaultSettings);
     welcome.onStart = () => {
       this.showGame(data);

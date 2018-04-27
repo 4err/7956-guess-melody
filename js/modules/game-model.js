@@ -76,7 +76,7 @@ export class GameModel {
 
   get result() {
     this._state.points = countPoints(this._state.answers);
-    return showResult([], this._state);
+    return showResult(this._state);
   }
 
   getQuestion(n) {

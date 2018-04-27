@@ -3,6 +3,8 @@
  */
 
 import {Application} from './application';
+import {saveResults, getStats} from './modules/game';
+// saveResults({points:1});
 
-// Application.showWelcome();
+// Application.showStats();
 Application.start();
