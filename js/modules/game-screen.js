@@ -17,6 +17,11 @@ export class GameScreen {
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
     this._interval = null;
+
+    this._timeLineOffsetStep = 7.75;
+    this._timeLineOffsetCurr = 0;
+    this._timeLineDashArray = 2325;
+
   }
 
   get element() {
@@ -30,9 +35,9 @@ export class GameScreen {
       if (this.model.status === Result.TIME) {
         this.endGame();
       }
-
       this.model.tick();
       this.updateHeader();
+      this.updateHeaderTimerOffset();
     }, 1000);
   }
 
@@ -45,6 +50,13 @@ export class GameScreen {
     const header = new HeaderView(this.model.state);
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
+  }
+
+  updateHeaderTimerOffset() {
+    let timeLine = this.header.element.querySelector(`.timer-line`);
+    timeLine.style.strokeDasharray = this._timeLineDashArray;
+    timeLine.style.strokeDashoffset = this._timeLineOffsetCurr + this._timeLineOffsetStep;
+    this._timeLineOffsetCurr += this._timeLineOffsetStep;
   }
 
   updateContent(view) {
