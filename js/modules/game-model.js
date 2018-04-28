@@ -2,8 +2,8 @@
  * Created by Denis on 23.04.2018.
  */
 
-import {initialGameStatus, Result} from "../data";
-import {clone} from "../utils";
+import {initialGameStatus, Result} from "../data/data";
+import {clone} from "../helpers/utils";
 
 export class GameModel {
   constructor(questions) {

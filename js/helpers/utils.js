@@ -31,27 +31,3 @@ export const plural = (num, pluralArr) => {
   }
   return pluralArr[3];
 };
-
-/**
- * Creating timer
- * @param {int} t
- * @return {{time: *, completed: number, tick: (function()), onComplete: (function())}}
- */
-export const setTimer = (t) => {
-  let timer = {
-    time: t,
-    completed: 0,
-    tick() {
-      this.time--;
-
-      if (this.time <= 0) {
-        this.onComplete();
-      }
-    },
-    onComplete() {
-      this.completed = 1;
-    }
-  };
-
-  return timer;
-};

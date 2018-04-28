@@ -2,7 +2,7 @@
  * Created by Denis on 30.03.2018.
  */
 import {LevelView} from "./level-view";
-import {IS_DEBUG} from "../data";
+import {IS_DEBUG} from "../data/data";
 
 export class ArtistView extends LevelView {
   get template() {

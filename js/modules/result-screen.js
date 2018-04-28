@@ -3,8 +3,8 @@
  */
 
 import {ResultView} from "../views/result-view";
-import {COUNT_RULES, Result} from "../data";
-import {plural} from "../utils";
+import {COUNT_RULES, Result} from "../data/data";
+import {plural} from "../helpers/utils";
 
 const resultsTemplates = {
   timeout: {
@@ -86,7 +86,7 @@ export class ResultScreen {
     const place = statistic.indexOf(this.model.points) + 1;
     const placesCount = statistic.length;
     const percent = Math.round((placesCount - place) / placesCount * 100);
-    result.stat = `Вы заняли ${place}-ое место из ${placesCount} ${plural(placesCount, [`игрока`, `игроков`, `игроков`])}. Это лучше, чем у ${percent}% игроков`;
+    result.stat = `Вы заняли ${place}-ое место из ${placesCount} ${plural(placesCount, [`игрока`, `игроков`, `игроков`])}.<br> Это лучше, чем у ${percent}% игроков`;
 
     this._result = result;
   }

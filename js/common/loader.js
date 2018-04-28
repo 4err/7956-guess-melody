@@ -18,8 +18,8 @@ const checkStatus = (response) => {
 export class Loader {
   static loadQuestions() {
     return window.fetch(QUESTIONS_URL)
-      .then(checkStatus)
-      .then((response) => response.json());
+        .then(checkStatus)
+        .then((response) => response.json());
   }
 
   static getStats() {

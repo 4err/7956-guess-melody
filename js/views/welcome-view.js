@@ -1,7 +1,7 @@
 /**
  * Created by Denis on 30.03.2018.
  */
-import {plural} from "../utils";
+import {plural} from "../helpers/utils";
 import {AbstractView} from "./abstract-view";
 
 export class WelcomeView extends AbstractView {

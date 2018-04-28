@@ -2,10 +2,10 @@
  * Created by Denis on 25.04.2018.
  */
 
-import {HeaderView} from "../views/header";
-import {GenreView} from "../views/genre-level-screen.js";
-import {ArtistView} from "../views/artist-level-screen.js";
-import {Result} from "../data";
+import {HeaderView} from "../views/header-view";
+import {GenreView} from "../views/genre-level-view.js";
+import {ArtistView} from "../views/artist-level-view.js";
+import {Result} from "../data/data";
 
 export class GameScreen {
   constructor(model) {

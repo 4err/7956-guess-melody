@@ -2,12 +2,13 @@
  * Created by Denis on 25.04.2018.
  */
 
-import {WelcomeView} from "./views/welcome-screen";
-import {GameModel} from "./modules/game-model";
-import {GameScreen} from "./modules/game-screen";
-import {ResultScreen} from "./modules/result-screen";
-import {defaultSettings, Result} from "./data";
-import {adaptServerData} from "./data-adapter";
+import {WelcomeView} from "../views/welcome-view";
+import {LoadingView} from "../views/loading-view";
+import {GameModel} from "../modules/game-model";
+import {GameScreen} from "../modules/game-screen";
+import {ResultScreen} from "../modules/result-screen";
+import {defaultSettings, Result} from "../data/data";
+import {adaptServerData} from "../data/data-adapter";
 import {Loader} from "./loader";
 
 const mainView = document.querySelector(`section.main`);
@@ -27,13 +28,15 @@ const changeView = (element, type = ``, isLevel = false) => {
 export class Application {
 
   static start() {
+    const loading = new LoadingView();
+    changeView(loading.element, `result`);
+
     Loader.loadQuestions()
         .then((data)=>adaptServerData(data))
         .then((data)=>Application.showWelcome(data));
   }
 
   static showWelcome(data) {
-    console.log(data);
     const welcome = new WelcomeView(defaultSettings);
     welcome.onStart = () => {
       this.showGame(data);
@@ -54,15 +57,17 @@ export class Application {
     const results = new ResultScreen(model);
 
     if (model.status === Result.WIN) {
+      const loading = new LoadingView();
+      changeView(loading.element, `result`);
       results.countPoints();
 
       Loader.saveResults(model.points)
-        .then(Loader.getStats)
-        .then((stats) => stats.map((result) => (result.points)))
-        .then((stats) => (stats.sort((left, right) => right - left)))
-        .then((stats) => (results.getWinResult(stats)))
-        .then(() => (console.log(results)))
-        .then(() => (results.showResult()));
+          .then(Loader.getStats)
+          .then((stats) => stats.map((result) => (result.points)))
+          .then((stats) => (stats.sort((left, right) => right - left)))
+          .then((stats) => (results.getWinResult(stats)))
+          .then(() => (results.showResult()))
+          .then(()=> (changeView(results.element, `result`)));
     } else {
       results.getFailResult();
       results.showResult();
@@ -71,7 +76,6 @@ export class Application {
     results.onRestart = () => {
       this.start();
     };
-    changeView(results.element, `result`);
   }
 
 }
