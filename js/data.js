@@ -6,10 +6,7 @@ export const defaultSettings = {
   maxErrors: 3,
 };
 
-const APP_ID = `7956`;
-
-export const QUESTIONS_URL = `https://es.dump.academy/guess-melody/questions`;
-export const STATS_URL = `https://es.dump.academy/guess-melody/stats/${APP_ID}`;
+export const IS_DEBUG = true;
 
 export const COUNT_RULES = {
   isCorrect: 1,

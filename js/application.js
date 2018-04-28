@@ -5,9 +5,10 @@
 import {WelcomeView} from "./views/welcome-screen";
 import {GameModel} from "./modules/game-model";
 import {GameScreen} from "./modules/game-screen";
-import {ResultView} from "./views/result-screen";
-import {defaultSettings, QUESTIONS_URL} from "./data";
+import {ResultScreen} from "./modules/result-screen";
+import {defaultSettings, Result} from "./data";
 import {adaptServerData} from "./data-adapter";
+import {Loader} from "./loader";
 
 const mainView = document.querySelector(`section.main`);
 const changeView = (element, type = ``, isLevel = false) => {
@@ -23,20 +24,10 @@ const changeView = (element, type = ``, isLevel = false) => {
   mainView.appendChild(element);
 };
 
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
-};
-
 export class Application {
 
   static start() {
-    window.fetch(QUESTIONS_URL)
-        .then(checkStatus)
-        .then((response) => response.json())
+    Loader.loadQuestions()
         .then((data)=>adaptServerData(data))
         .then((data)=>Application.showWelcome(data));
   }
@@ -60,7 +51,23 @@ export class Application {
   }
 
   static showStats(model) {
-    const results = new ResultView(model.result);
+    const results = new ResultScreen(model);
+
+    if (model.status === Result.WIN) {
+      results.countPoints();
+
+      Loader.saveResults(model.points)
+        .then(Loader.getStats)
+        .then((stats) => stats.map((result) => (result.points)))
+        .then((stats) => (stats.sort((left, right) => right - left)))
+        .then((stats) => (results.getWinResult(stats)))
+        .then(() => (console.log(results)))
+        .then(() => (results.showResult()));
+    } else {
+      results.getFailResult();
+      results.showResult();
+    }
+
     results.onRestart = () => {
       this.start();
     };
