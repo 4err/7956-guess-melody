@@ -6,7 +6,7 @@ export const defaultSettings = {
   maxErrors: 3,
 };
 
-export const QUESTIONS_URL = `https://es.dump.academy/guess-melody/questions`;
+export const IS_DEBUG = false;
 
 export const COUNT_RULES = {
   isCorrect: 1,

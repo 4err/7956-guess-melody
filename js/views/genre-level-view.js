@@ -2,6 +2,7 @@
  * Created by Denis on 30.03.2018.
  */
 import {LevelView} from "./level-view";
+import {IS_DEBUG} from "../data/data";
 
 export class GenreView extends LevelView {
   get template() {
@@ -19,6 +20,10 @@ export class GenreView extends LevelView {
   }
 
   answerTemplate(answer, num) {
+    let debug = ``;
+    if (IS_DEBUG && answer.isCorrect) {
+      debug = `debug`;
+    }
     return `<div class="genre-answer">
           <div class="player-wrapper">
             <div class="player">
@@ -30,7 +35,7 @@ export class GenreView extends LevelView {
             </div>
           </div>
           <input type="checkbox" name="answer" value="${num}" id="a-${num}">
-          <label class="genre-answer-check" for="a-${num}"></label>
+          <label class="genre-answer-check ${debug}" for="a-${num}"></label>
       </div>`;
   }
 

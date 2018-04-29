@@ -2,6 +2,7 @@
  * Created by Denis on 30.03.2018.
  */
 import {LevelView} from "./level-view";
+import {IS_DEBUG} from "../data/data";
 
 export class ArtistView extends LevelView {
   get template() {
@@ -27,9 +28,14 @@ export class ArtistView extends LevelView {
   }
 
   answerTemplate(answer, num) {
+    let debug = ``;
+    if (IS_DEBUG && answer.isCorrect) {
+      debug = `debug`;
+    }
+
     return `<div class="main-answer-wrapper">
           <input class="main-answer-r" type="radio" id="answer-${num}" name="answer" value="${num}"/>
-          <label class="main-answer" for="answer-${num}">
+          <label class="main-answer  ${debug}" for="answer-${num}">
             <img class="main-answer-preview" src="${answer.pic}"
                  alt="${answer.name}" width="134" height="134">
             ${answer.name}
