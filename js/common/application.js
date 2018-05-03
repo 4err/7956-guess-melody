@@ -8,7 +8,7 @@ import GameModel from "../modules/game-model";
 import GameScreen from "../modules/game-screen";
 import ResultScreen from "../modules/result-screen";
 import {defaultSettings, Result} from "../data/data";
-import {adaptServerData} from "../data/data-adapter";
+import {adaptServerData, getAudioList} from "../data/data-adapter";
 import Loader from "./loader";
 
 const mainView = document.querySelector(`section.main`);
@@ -25,6 +25,25 @@ const changeView = (element, type = ``, isLevel = false) => {
   mainView.appendChild(element);
 };
 
+const loadingAudio = (data) => {
+  const audios = getAudioList(data);
+  let fragment = document.createDocumentFragment();
+
+  for (let audio of audios) {
+    let sound = document.createElement(`audio`);
+    sound.src = audio;
+    sound.style.display = `none`;
+    sound.classList = `inserted-audio`;
+    fragment.appendChild(sound);
+  }
+  document.body.appendChild(fragment);
+
+  let insertedAudios = document.querySelectorAll(`.inserted-audio`);
+  for(let audio of insertedAudios) {
+    audio.load();
+  }
+};
+
 export default class Application {
 
   static start() {
@@ -32,12 +51,15 @@ export default class Application {
     changeView(loading.element, `result`);
 
     Loader.loadQuestions()
-        .then((data)=>adaptServerData(data))
-        .then((data)=>Application.showWelcome(data));
+      .then((data)=>adaptServerData(data))
+      .then((data)=>Application.showWelcome(data));
   }
 
   static showWelcome(data) {
     const welcome = new WelcomeView(defaultSettings);
+
+    loadingAudio(data);
+
     welcome.onStart = () => {
       this.showGame(data);
     };
@@ -62,12 +84,12 @@ export default class Application {
       results.countPoints();
 
       Loader.saveResults(model.points)
-          .then(Loader.getStats)
-          .then((stats) => stats.map((result) => (result.points)))
-          .then((stats) => (stats.sort((left, right) => right - left)))
-          .then((stats) => (results.getWinResult(stats)))
-          .then(() => (results.showResult()))
-          .then(()=> (changeView(results.element, `result`)));
+        .then(Loader.getStats)
+        .then((stats) => stats.map((result) => (result.points)))
+        .then((stats) => (stats.sort((left, right) => right - left)))
+        .then((stats) => (results.getWinResult(stats)))
+        .then(() => (results.showResult()))
+        .then(()=> (changeView(results.element, `result`)));
     } else {
       results.getFailResult();
       results.showResult();

@@ -36,3 +36,18 @@ const adaptGenreAnswers = (answers, genre) =>
     audio: answer.src,
     isCorrect: answer.genre === genre
   }));
+
+export const getAudioList = (data) => {
+  let audios = [];
+  for (let question of data) {
+    if (question.type === `genre`) {
+      for (let answer of question.answers) {
+        audios.push(answer.audio);
+      }
+    } else {
+      audios.push(question.audio);
+    }
+  }
+
+  return audios;
+};
