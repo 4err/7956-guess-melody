@@ -37,49 +37,13 @@ const showLoadingScreen = (title, text = ``) => {
 };
 
 const loadingAudio = (data) => {
-  return new Promise((onLoaded, onError) => {
-    const audios = getAudioList(data);
-    let fragment = document.createDocumentFragment();
-
-    for (let audio of audios) {
-      let sound = document.createElement(`audio`);
-      sound.src = audio;
-      sound.style.display = `none`;
-      sound.classList = `inserted-audio`;
-      fragment.appendChild(sound);
-    }
-    document.body.appendChild(fragment);
-
-    let insertedAudios = document.querySelectorAll(`.inserted-audio`);
-
-    let currentLoadedAudio = 0;
-    for (let audio of insertedAudios) {
-      audio.load();
-      audio.addEventListener(`canplaythrough`, () => {
-        currentLoadedAudio++;
-        const text = `${plural(currentLoadedAudio, [`Загружена`, `Загружено`, `Загружено`])} ${currentLoadedAudio}
-                    ${plural(currentLoadedAudio, [`мелодия`, `мелодии`, `мелодий`])} из ${audios.size}`;
-
-        showLoadingScreen(`Загружаем музыку!`, text);
-
-        if (currentLoadedAudio === audios.size) {
-          onLoaded(data);
-        }
-      });
-    }
-  });
-};
-
-const loadingAudioNew = (data) => {
-  return new Promise((onLoaded, onError) => {
+  return new Promise((onLoaded) => {
     const audios = getAudioList(data);
     let currentLoadedAudio = 0;
 
     for (let audio of audios) {
       let sound = new Audio(audio);
-      sound.style.display = `none`;
 
-      sound.load();
       sound.addEventListener(`canplaythrough`, () => {
         currentLoadedAudio++;
         const text = `${plural(currentLoadedAudio, [`Загружена`, `Загружено`, `Загружено`])} ${currentLoadedAudio}
@@ -91,29 +55,6 @@ const loadingAudioNew = (data) => {
           onLoaded(data);
         }
       });
-
-      sound.addEventListener(`error`, function failed(e) {
-        // audio playback failed - show a message saying why
-        // to get the source of the audio element use $(this).src
-        switch (e.target.error.code) {
-          case e.target.error.MEDIA_ERR_ABORTED:
-            onError('You aborted the video playback.');
-
-            break;
-          case e.target.error.MEDIA_ERR_NETWORK:
-            onError('A network error caused the audio download to fail.');
-            break;
-          case e.target.error.MEDIA_ERR_DECODE:
-            onError('The audio playback was aborted due to a corruption problem or because the video used features your browser did not support.');
-            break;
-          case e.target.error.MEDIA_ERR_SRC_NOT_SUPPORTED:
-            onError('The video audio not be loaded, either because the server or network failed or because the format is not supported.');
-            break;
-          default:
-            onError('An unknown error occurred.');
-            break;
-        }
-      }, true);
     }
 
   });
@@ -125,10 +66,9 @@ export default class Application {
     showLoadingScreen(`Загружаем вопросы!`);
 
     Loader.loadQuestions()
-      .then((data)=>adaptServerData(data))
-      .then((data) => loadingAudioNew(data))
-      .then((data)=>Application.showWelcome(data))
-      .catch((e)=>console.log(e));
+        .then((data)=>adaptServerData(data))
+        .then((data) => loadingAudio(data))
+        .then((data)=>Application.showWelcome(data));
   }
 
   static showWelcome(data) {
@@ -157,12 +97,12 @@ export default class Application {
       results.countPoints();
 
       Loader.saveResults(model.points)
-        .then(Loader.getStats)
-        .then((stats) => stats.map((result) => (result.points)))
-        .then((stats) => (stats.sort((left, right) => right - left)))
-        .then((stats) => (results.getWinResult(stats)))
-        .then(() => (results.showResult()))
-        .then(()=> (changeView(results.element, `result`)));
+          .then(Loader.getStats)
+          .then((stats) => stats.map((result) => (result.points)))
+          .then((stats) => (stats.sort((left, right) => right - left)))
+          .then((stats) => (results.getWinResult(stats)))
+          .then(() => (results.showResult()))
+          .then(()=> (changeView(results.element, `result`)));
     } else {
       results.getFailResult();
       results.showResult();
