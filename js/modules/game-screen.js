@@ -2,12 +2,12 @@
  * Created by Denis on 25.04.2018.
  */
 
-import {HeaderView} from "../views/header-view";
-import {GenreView} from "../views/genre-level-view.js";
-import {ArtistView} from "../views/artist-level-view.js";
+import HeaderView from "../views/header-view";
+import GenreView from "../views/genre-level-view.js";
+import ArtistView from "../views/artist-level-view.js";
 import {Result} from "../data/data";
 
-export class GameScreen {
+export default class GameScreen {
   constructor(model) {
     this.model = model;
     this.header = new HeaderView(this.model.state);
@@ -17,15 +17,28 @@ export class GameScreen {
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
     this._interval = null;
-
-    this._timeLineOffsetStep = 7.75;
-    this._timeLineOffsetCurr = 0;
-    this._timeLineDashArray = 2325;
-
   }
 
   get element() {
     return this.root;
+  }
+
+  get question() {
+    const currentQuestion = this.model.currQuestion;
+    let question = ``;
+
+    switch (currentQuestion.type) {
+      case `artist`:
+        question = new ArtistView(currentQuestion);
+        break;
+      case `genre`:
+        question = new GenreView(currentQuestion);
+        break;
+      default:
+        throw new Error(`Missing question type`);
+    }
+
+    return question;
   }
 
   init() {
@@ -37,7 +50,6 @@ export class GameScreen {
       }
       this.model.tick();
       this.updateHeader();
-      this.updateHeaderTimerOffset();
     }, 1000);
   }
 
@@ -50,13 +62,6 @@ export class GameScreen {
     const header = new HeaderView(this.model.state);
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
-  }
-
-  updateHeaderTimerOffset() {
-    let timeLine = this.header.element.querySelector(`.timer-line`);
-    timeLine.style.strokeDasharray = this._timeLineDashArray;
-    timeLine.style.strokeDashoffset = this._timeLineOffsetCurr + this._timeLineOffsetStep;
-    this._timeLineOffsetCurr += this._timeLineOffsetStep;
   }
 
   updateContent(view) {
@@ -100,24 +105,6 @@ export class GameScreen {
       this.endGame();
     }
 
-  }
-
-  get question() {
-    const currentQuestion = this.model.currQuestion;
-    let question = ``;
-
-    switch (currentQuestion.type) {
-      case `artist`:
-        question = new ArtistView(currentQuestion);
-        break;
-      case `genre`:
-        question = new GenreView(currentQuestion);
-        break;
-      default:
-        throw new Error(`Missing question type`);
-    }
-
-    return question;
   }
 
   onEnd() {

@@ -5,10 +5,12 @@
 import {initialGameStatus, Result} from "../data/data";
 import {clone} from "../helpers/utils";
 
-export class GameModel {
+export default class GameModel {
   constructor(questions) {
     this._questions = questions;
     this._status = Result.NEXT_LEVEL;
+
+    this._timeLineOffsetStep = 7.75;
 
     this.restart();
   }
@@ -37,11 +39,12 @@ export class GameModel {
     return this._state.question;
   }
 
-  set points(points) {
-    this._state.points = points;
-  }
   get points() {
     return this._state.points;
+  }
+
+  set points(points) {
+    this._state.points = points;
   }
 
   hasNextQuestion() {
@@ -55,11 +58,15 @@ export class GameModel {
 
   restart() {
     this._state = clone(initialGameStatus);
+    this._state.timeOffset = 0;
     this.nextQuestion();
   }
 
   tick() {
     this._state.time--;
+
+    this._state.timeOffset += this._timeLineOffsetStep;
+
     if (this._state.time <= 0) {
       this._status = Result.TIME;
     }

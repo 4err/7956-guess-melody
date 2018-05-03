@@ -1,9 +1,9 @@
 /**
  * Created by Denis on 16.04.2018.
  */
-import {AbstractView} from "./abstract-view";
+import AbstractView from "./abstract-view";
 
-export class LevelView extends AbstractView {
+export default class LevelView extends AbstractView {
   constructor(data) {
     super(data);
 
@@ -52,8 +52,12 @@ export class LevelView extends AbstractView {
 
   audioAutoStart() {
     const audio = this._element.querySelector(`audio`);
-    audio.play();
-    audio.nextElementSibling.classList.toggle(`player-control--pause`);
+
+
+    audio.play().then(() => {
+      audio.nextElementSibling.classList.toggle(`player-control--pause`);
+    }).catch(() => {});
+
   }
 
   buildAnswers() {

@@ -1,9 +1,9 @@
 /*
  * Created by Denis on 10.04.2018.
  */
-import {AbstractView} from "./abstract-view";
+import AbstractView from "./abstract-view";
 
-export class HeaderView extends AbstractView {
+export default class HeaderView extends AbstractView {
 
   get template() {
     return `
@@ -13,6 +13,8 @@ export class HeaderView extends AbstractView {
         cx="390" cy="390" r="370"
         class="timer-line"
         style="
+        stroke-dasharray: 2325;
+        stroke-dashoffset: ${this.data.timeOffset};
         filter: url(.#blur); 
         transform: rotate(-90deg) scaleY(-1);
         transform-origin: center

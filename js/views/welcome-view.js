@@ -2,9 +2,9 @@
  * Created by Denis on 30.03.2018.
  */
 import {plural} from "../helpers/utils";
-import {AbstractView} from "./abstract-view";
+import AbstractView from "./abstract-view";
 
-export class WelcomeView extends AbstractView {
+export default class WelcomeView extends AbstractView {
   get template() {
     return `
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>

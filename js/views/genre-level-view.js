@@ -1,10 +1,10 @@
 /**
  * Created by Denis on 30.03.2018.
  */
-import {LevelView} from "./level-view";
+import LevelView from "./level-view";
 import {IS_DEBUG} from "../data/data";
 
-export class GenreView extends LevelView {
+export default class GenreView extends LevelView {
   get template() {
     let answers = this.buildAnswers();
 
@@ -44,8 +44,8 @@ export class GenreView extends LevelView {
     let sendButton = node.querySelector(`.genre-answer-send`);
     let answerButtons = node.querySelectorAll(`input[name="answer"]`);
 
-    for (let i = 0; i < answerButtons.length; i++) {
-      answerButtons[i].addEventListener(`change`, function () {
+    for (let button of answerButtons) {
+      button.addEventListener(`change`, function () {
         let checkedNum = document.querySelectorAll(`input[name="answer"]:checked`).length;
         if (checkedNum > 0 && sendButton.disabled) {
           sendButton.disabled = false;
@@ -63,11 +63,11 @@ export class GenreView extends LevelView {
         this._answers.push(it.value);
       }
 
-      this.onClick(this._answers, this._time);
+      this.onAnswerClick(this._answers, this._time);
     });
   }
 
-  onClick() {
+  onAnswerClick() {
   }
 
 }

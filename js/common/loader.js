@@ -15,7 +15,7 @@ const checkStatus = (response) => {
   }
 };
 
-export class Loader {
+export default class Loader {
   static loadQuestions() {
     return window.fetch(QUESTIONS_URL)
         .then(checkStatus)

@@ -2,7 +2,7 @@
  * Created by Denis on 13.04.2018.
  */
 
-export class AbstractView {
+export default class AbstractView {
   constructor(data = ``) {
     this.data = data;
     this._element = null;

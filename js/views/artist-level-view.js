@@ -1,10 +1,10 @@
 /**
  * Created by Denis on 30.03.2018.
  */
-import {LevelView} from "./level-view";
+import LevelView from "./level-view";
 import {IS_DEBUG} from "../data/data";
 
-export class ArtistView extends LevelView {
+export default class ArtistView extends LevelView {
   get template() {
     let answers = this.buildAnswers();
 
@@ -47,16 +47,16 @@ export class ArtistView extends LevelView {
     this.bindAudio();
 
     let answerButtons = node.querySelectorAll(`input[name="answer"]`);
-    for (let i = 0; i < answerButtons.length; i++) {
-      answerButtons[i].addEventListener(`change`, () => {
-        let answer = answerButtons[i].value;
+    for (let button of answerButtons) {
+      button.addEventListener(`change`, () => {
+        let answer = button.value;
         this._answers.push(answer);
-        this.onClick(this._answers);
+        this.onAnswerClick(this._answers);
       });
     }
   }
 
-  onClick() {
+  onAnswerClick() {
   }
 
 }

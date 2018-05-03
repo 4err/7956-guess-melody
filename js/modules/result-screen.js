@@ -2,7 +2,7 @@
  * Created by Denis on 28.04.2018.
  */
 
-import {ResultView} from "../views/result-view";
+import ResultView from "../views/result-view";
 import {COUNT_RULES, Result} from "../data/data";
 import {plural} from "../helpers/utils";
 
@@ -21,7 +21,7 @@ const resultsTemplates = {
   }
 };
 
-export class ResultScreen {
+export default class ResultScreen {
   constructor(model) {
     this.model = model;
     this._result = ``;
@@ -48,8 +48,7 @@ export class ResultScreen {
     let answers = this.model.answers;
 
     let lastAnswerTime = 300;
-    for (let i = 0; i < answers.length; i++) {
-      let currentAnswer = answers[i];
+    for (let currentAnswer of answers) {
       if (currentAnswer.isCorrect) {
         points += COUNT_RULES.isCorrect;
 

@@ -2,14 +2,14 @@
  * Created by Denis on 25.04.2018.
  */
 
-import {WelcomeView} from "../views/welcome-view";
-import {LoadingView} from "../views/loading-view";
-import {GameModel} from "../modules/game-model";
-import {GameScreen} from "../modules/game-screen";
-import {ResultScreen} from "../modules/result-screen";
+import WelcomeView from "../views/welcome-view";
+import LoadingView from "../views/loading-view";
+import GameModel from "../modules/game-model";
+import GameScreen from "../modules/game-screen";
+import ResultScreen from "../modules/result-screen";
 import {defaultSettings, Result} from "../data/data";
 import {adaptServerData} from "../data/data-adapter";
-import {Loader} from "./loader";
+import Loader from "./loader";
 
 const mainView = document.querySelector(`section.main`);
 const changeView = (element, type = ``, isLevel = false) => {
@@ -25,7 +25,7 @@ const changeView = (element, type = ``, isLevel = false) => {
   mainView.appendChild(element);
 };
 
-export class Application {
+export default class Application {
 
   static start() {
     const loading = new LoadingView();
@@ -71,6 +71,7 @@ export class Application {
     } else {
       results.getFailResult();
       results.showResult();
+      changeView(results.element, `result`);
     }
 
     results.onRestart = () => {

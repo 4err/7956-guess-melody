@@ -2,9 +2,9 @@
  * Created by Denis on 11.04.2018.
  */
 
-import {AbstractView} from "./abstract-view";
+import AbstractView from "./abstract-view";
 
-export class ResultView extends AbstractView {
+export default class ResultView extends AbstractView {
   get template() {
     return `
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
