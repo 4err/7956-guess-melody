@@ -73,7 +73,7 @@ export default class GameScreen {
     this.updateHeader();
 
     const question = this.question;
-    question.onClick = this.checkAnswer.bind(this);
+    question.onAnswerClick = this.checkAnswer.bind(this);
     this.updateContent(question);
   }
 

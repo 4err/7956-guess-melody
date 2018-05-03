@@ -52,15 +52,8 @@ export default class LevelView extends AbstractView {
 
   audioAutoStart() {
     const audio = this._element.querySelector(`audio`);
-
-    audio.addEventListener(`canplaythrough`, () => {
-      audio.play();
-      audio.nextElementSibling.classList.toggle(`player-control--pause`);
-    });
-    // audio.play().then(() => {
-    //   audio.nextElementSibling.classList.toggle(`player-control--pause`);
-    // }).catch(() => {});
-
+    audio.play();
+    audio.nextElementSibling.classList.toggle(`player-control--pause`);
   }
 
   buildAnswers() {

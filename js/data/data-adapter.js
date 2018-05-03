@@ -38,14 +38,14 @@ const adaptGenreAnswers = (answers, genre) =>
   }));
 
 export const getAudioList = (data) => {
-  let audios = [];
+  let audios = new Set();
   for (let question of data) {
     if (question.type === `genre`) {
       for (let answer of question.answers) {
-        audios.push(answer.audio);
+        audios.add(answer.audio);
       }
     } else {
-      audios.push(question.audio);
+      audios.add(question.audio);
     }
   }
 
