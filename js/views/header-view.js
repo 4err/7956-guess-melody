@@ -19,12 +19,12 @@ export default class HeaderView extends AbstractView {
         transform: rotate(-90deg) scaleY(-1);
         transform-origin: center
         "></circle>
-      <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
+    </svg>
+    <div class="timer-value">
         <span class="timer-value-mins">${Math.floor(this.data.time / 60)}</span><!--    
         --><span class="timer-value-dots">:</span><!--
         --><span class="timer-value-secs">${(`0` + (this.data.time % 60)).substr(-2)}</span>
       </div>
-    </svg>
     <div class="main-mistakes">
     ${new Array(this.data.mistakes)
       .fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`)
